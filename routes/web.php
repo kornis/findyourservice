@@ -28,10 +28,12 @@ Route::get('/register',function()
     return view('registrarse');
 });
 
-Route::post('/search','mainController@search');
+Route::post('/','servicesController@searchService');
 
 Route::post('/services/store','servicesController@store');
 
 Route::get('/services/create',function(){
     return view('crearServicio');
 });
+
+Route::get('/servicios','servicesController@getAllServices');

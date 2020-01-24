@@ -41,7 +41,7 @@
             </div>
             <div class="col singup">
             <div class="registrarse">
-                <span><small>No estás registrado? Hacé click <a href="/registrarse"> aquí </a></small></span>
+                <span><small>No estás registrado? Hacé click <a href="/register"> aquí </a></small></span>
             </div>
         </div>
         </div>

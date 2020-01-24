@@ -9,26 +9,25 @@
 </head>
 <body>
     <h3>Crear nuevo servicio</h3>
-<form action="{{'servicesController@store'}}" method="POST">
-    <label for="title">Titulo</label>
+<form action="{{action('servicesController@store')}}" method="POST">
+    {{ csrf_field() }}
+    <label for="service_title">Titulo</label>
     <br>
-    <input type="text" name="title" id="title">
+    <input type="text" name="service_title" id="service_title">
     <br>
     <label>Coordenadas</label>
     <br>
-    <label for="lat">Latitud</label>
-    <input type="number" name="lat" id="lat">
-    <label for="lon">Longitud</label>
-    <input type="number" name="lon" id="lon">
+    <label for="service_lat">Latitud</label>
+    <input type="number" name="service_lat" step="0.0000000000001" id="service_lat">
+    <label for="service_long">Longitud</label>
+    <input type="number" name="service_long" step="0.0000000000001" id="service_long">
     <br>
-    <label for="description">Descripcion</label>
+    <label for="service_description">Descripcion</label>
     <br>
-    <textarea name="description" id="description" cols="30" rows="10"></textarea>
+    <textarea name="service_description" id="service_description" cols="30" rows="10"></textarea>
     <br>
     <label for="active">Activo</label>
     <input type="checkbox" name="active" id="active">
-    <label for="inactive">Inactivo</label>
-    <input type="checkbox" name="inactive" id="inactive">
     <br><br>
     <input type="submit" value="Guardar">
 </form>
@@ -36,9 +35,7 @@
 <input type="text" name="" id="direccion">
 <button id="buscar">Buscar direccion</button>
 
-<div class="col-md-12 col-sm-12">
-    <input type="text" style="width:400px" id="coords" />
- <div>
+
  <div class="col-md-12 col-sm-12" id="map-canvas" style="height:200px;"></div>
 
 
@@ -48,9 +45,10 @@
 var geocoder;
 var direccion = document.getElementById("direccion");
 var button = document.getElementById("buscar");
-var lat = document.getElementById('lat');
-var lon = document.getElementById('lon');
-   
+var lat = document.getElementById('service_lat');
+var lon = document.getElementById('service_long');
+var marker;
+
 function initialize() { 
 
 
@@ -61,29 +59,41 @@ function initialize() {
      });
 
 
-   
-
-			
-      button.addEventListener('click',function(event) {
-     // document.querySelector("#coords").value = this.getPosition().toString();
-     geocoder = new google.maps.Geocoder();
-     geocoder.geocode({'address': direccion.value},function(resultado,status)
-     {
-        var result = resultado[0].geometry.location;
-         map.zoom = 17;
-        map.setCenter(result);
-        lat.value = result.lat();
-        lon.value = result.lng();
-        var marker=new google.maps.Marker({
-      position:result, 
+     marker=new google.maps.Marker({
+         position: map.getCenter(),
       map:map, 
       draggable:true
    });
-       
-     })
+   google.maps.event.addListener(marker,'dragend',function(event) {
+    lat.value = marker.getPosition().lat().toFixed(8);
+    lon.value = marker.getPosition().lng().toFixed(8);
+   ;
    });
+			
+      button.addEventListener('click',function(event) {
+     geocoder = new google.maps.Geocoder();
+     geocoder.geocode({'address': direccion.value},function(resultado,status)
+     {
+         var result = resultado[0].geometry.location;
+         map.zoom = 17;
+        map.setCenter(result);
+     
+        lat.value = result.lat().toFixed(8);
+        lon.value = result.lng().toFixed(8);
+        marker.setPosition(result);
+       
+     });
+   });
+
+
+
+
 }
+
+
 google.maps.event.addDomListener(window, 'load', initialize);
+
+
 </script>
 
 </body>

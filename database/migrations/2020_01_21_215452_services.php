@@ -17,8 +17,9 @@ class Services extends Migration
             $table->increments('id');
             $table->string('service_title',60);
             $table->string('service_description',150);
-            $table->boolean('active')->default(false);
-            $table->point('coords');
+            $table->string('active')->default('off');
+            $table->decimal('service_lat',10,8);
+            $table->decimal('service_long',10,8);
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
