@@ -37,9 +37,16 @@
     <option value="any">Anywhere</option></select>
     </div>
     </div>
-    
-    <input type="number" hidden name="local_lat" step="0.0000000000001" id="local_lat">
-    <input type="number" hidden name="local_long" step="0.0000000000001" id="local_long">
+    <!-- <div class="form-row">
+      <div class="form-group">
+    <label for="local_lat">Latitud</label> -->
+    <input type="number" hidden name="local_lat" step="0.0000000000001" id="local_lat" class="form-control">
+      <!--</div>
+      <div class="form-group">
+    <label for="local_lat">Longitud</label> -->
+    <input type="number" hidden name="local_long" step="0.0000000000001" id="local_long" class="form-control">
+      <!-- </div>
+    </div> -->
     <button type="submit" class="btn btn-primary">Buscar</button>
 </form>
 </div>
@@ -61,12 +68,17 @@
     <tbody>
         @php $n=1; @endphp
         @foreach ($data as $item)
-        <tr>
-            <th scope="row">{{$n}}</th>
+        
+         <tr style="transform: rotate(0);" class="table-link">
+
+            <th scope="row"><a class="stretched-link" href="{{action("servicesController@showService",$item->id)}}"> {{$n}}</a></th>
             <td>{{ $item->service_title }}</td>
             <td>{{$item->service_description }}</td>
-        <td>{{$item->distance}} Km</td>
+            <td>{{$item->distance}} Km</td>
+          
           </tr>
+        
+    
           @php $n++; @endphp
         @endforeach
 
@@ -100,8 +112,8 @@
     var longitude = position.coords.longitude;
     output.parentNode.setAttribute('class','alert alert-primary alert-dismissible fade show');
     output.innerHTML = '<p>Tu latitud es ' + latitude + '° <br>Tu longitud es ' + longitude + '°</p>';
-    local_lat.value = latitude;
-    local_long.value = longitude;
+   local_lat.value = latitude.toFixed(8);
+   local_long.value = longitude.toFixed(8);
   };
 
   function error() {
@@ -114,6 +126,7 @@
   navigator.geolocation.getCurrentPosition(success, error);
 }
 
+ 
     </script>
 </body>
 </html>

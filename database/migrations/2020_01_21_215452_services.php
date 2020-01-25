@@ -20,6 +20,7 @@ class Services extends Migration
             $table->string('active')->default('off');
             $table->decimal('service_lat',10,8);
             $table->decimal('service_long',10,8);
+            $table->string('map_link');
 
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

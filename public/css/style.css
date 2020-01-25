@@ -36,6 +36,11 @@ nav
     padding-bottom: 45px;
 }
 
+.table-link:hover
+{
+    background-color: lightblue;
+}
+
 /*  footer  */
 .container-fluid.footer-container {
     position: absolute;

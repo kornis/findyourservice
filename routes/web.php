@@ -36,4 +36,6 @@ Route::get('/services/create',function(){
     return view('crearServicio');
 });
 
-Route::get('/servicios','servicesController@getAllServices');
+Route::get('/services','servicesController@getAllServices');
+
+Route::get('/service/{id}',"servicesController@showService");

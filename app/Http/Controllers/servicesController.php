@@ -21,26 +21,12 @@ class servicesController extends Controller
     public function haversine($latitude, $longitude, $radius, $word){
        if($radius == "any")
         {
-            $services = Service::select('services.*')->search($word)
-            ->selectRaw('( 6371 * acos( cos( radians(?) ) *
-                               cos( radians( service_lat ) )
-                               * cos( radians( service_long ) - radians(?)
-                               ) + sin( radians(?) ) *
-                               sin( radians( service_lat ) ) )
-                             ) AS distance', [$latitude, $longitude, $latitude])->get();
+            $services = Service::select('services.*')->search($word)->distance($latitude, $longitude, $radius = false)->get();
         }
     else
         {
 
-        $services = Service::select('services.*')->search($word)
-            ->selectRaw('( 6371 * acos( cos( radians(?) ) *
-                               cos( radians( service_lat ) )
-                               * cos( radians( service_long ) - radians(?)
-                               ) + sin( radians(?) ) *
-                               sin( radians( service_lat ) ) )
-                             ) AS distance', [$latitude, $longitude, $latitude])
-            ->havingRaw("distance <= ?", [$radius])
-            ->get();
+        $services = Service::select('services.*')->search($word)->distance($latitude, $longitude, $radius)->get();
        }
         
         return $services;
@@ -78,5 +64,12 @@ class servicesController extends Controller
        
 
      
+    }
+
+    public function showService($id)
+    {
+        $service = Service::where('id','=',$id)->first();
+        
+        return view('showService')->with('service',$service);
     }
 }

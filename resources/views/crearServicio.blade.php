@@ -29,6 +29,7 @@
     <label for="active">Activo</label>
     <input type="checkbox" name="active" id="active">
     <br><br>
+    <input type="text" hidden name="map_link" id="map_link">
     <input type="submit" value="Guardar">
 </form>
 <label for="">Buscar direccion </label>
@@ -48,6 +49,7 @@ var button = document.getElementById("buscar");
 var lat = document.getElementById('service_lat');
 var lon = document.getElementById('service_long');
 var marker;
+var map_link = document.getElementById('map_link');
 
 function initialize() { 
 
@@ -67,7 +69,8 @@ function initialize() {
    google.maps.event.addListener(marker,'dragend',function(event) {
     lat.value = marker.getPosition().lat().toFixed(8);
     lon.value = marker.getPosition().lng().toFixed(8);
-   ;
+    map_link.value = "https://maps.googleapis.com/maps/api/staticmap?center="+direccion.value+"&zoom=17&size=600x300&markers=color:red%7Clabel:S%7C%7C"+lat.value+","+lon.value+"&key=AIzaSyCeYqa3zn6HNHm26WQyZhkZ5567ybTeYYQ"
+
    });
 			
       button.addEventListener('click',function(event) {
@@ -81,7 +84,8 @@ function initialize() {
         lat.value = result.lat().toFixed(8);
         lon.value = result.lng().toFixed(8);
         marker.setPosition(result);
-       
+        map_link.value = "https://maps.googleapis.com/maps/api/staticmap?center="+direccion.value+"&zoom=17&size=600x300&markers=color:red%7Clabel:S%7C%7C"+lat.value+","+lon.value+"&key=AIzaSyCeYqa3zn6HNHm26WQyZhkZ5567ybTeYYQ"
+
      });
    });
 
