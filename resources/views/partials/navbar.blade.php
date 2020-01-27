@@ -11,18 +11,27 @@
         <li class="nav-item active">
           <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
+        @if(!Auth::user())
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="/login">Iniciar Sesion</a>
         </li>
+        @endif
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          @if (Auth::user())
+              
+          
+          <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Usuario
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/servicios">ABM Servicios</a>
+            @if(Auth::user()->type_user == 'Admin')
+            <a class="dropdown-item" href="/services">ABM Servicios</a>
+            
             <div class="dropdown-divider"></div>
+            @endif
             <a class="dropdown-item" href="/logout">Cerrar Sesion</a>
           </div>
+          @endif
         </li>
 
       </ul>

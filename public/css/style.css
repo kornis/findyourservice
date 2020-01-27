@@ -7,6 +7,8 @@ body
 {
     position: relative;
     min-height: 100vh;
+    background-color: darkslateblue;
+    color: whitesmoke;
 }
 body::after
 {
@@ -17,9 +19,19 @@ body::after
 
 
 
-nav
+.bg-light {
+    background-color: 
+    slateblue !important;
+}
+
+nav 
 {
     margin-bottom: 15px;
+    color:whitesmoke;
+}
+nav a
+{
+    color: whitesmoke !important;
 }
 
 .dropdown-menu
@@ -35,26 +47,40 @@ nav
 {
     padding-bottom: 45px;
 }
-
+.table
+{
+    color: whitesmoke;
+}
 .table-link:hover
 {
     background-color: lightblue;
+    color: black;
 }
 
-/*  footer  */
-.container-fluid.footer-container {
-    position: absolute;
-    height: 45px;
-    bottom: 0;
-    background-color:
-    darkslateblue;
-    padding: 10px 0;
+.dropdown-item
+{
+    color:black !important;
+}
+
+.nav-item.dropdown:hover {
+
+    cursor: pointer;
 
 }
-.col.footer-col {
+
+.col.boton {
+
     display: flex;
-    justify-content: center;
+    align-items: end;
+
 }
+
+.dir
+{
+    margin-bottom: 6px;
+}
+
+
 
 
 

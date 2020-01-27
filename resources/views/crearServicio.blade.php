@@ -1,44 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-    
-    <title>Document</title>
+    <meta name="google-site-verification" content="WBfz1bzZpX_goZKsi2H8z78mOqBApxp-PTEwKLUs9bk" />
+    <link rel="stylesheet" href="{{asset("css/bootstrap.min.css")}}">
+<link rel="stylesheet" href="{{asset("css/style.css")}}">
+<link rel="stylesheet" href="{{asset("css/footer.css")}}">
+    <title>Find Your Service | encontrá lo que buscas</title>
 </head>
 <body>
-    <h3>Crear nuevo servicio</h3>
+
+    @include('partials/navbar')
+
+    <div class="container main-content">
+        <div class="col">
+            <h3>Crear nuevo servicio</h3>
 <form action="{{action('servicesController@store')}}" method="POST">
     {{ csrf_field() }}
+    <div class="form-group">
     <label for="service_title">Titulo</label>
-    <br>
-    <input type="text" name="service_title" id="service_title">
-    <br>
-    <label>Coordenadas</label>
-    <br>
-    <label for="service_lat">Latitud</label>
-    <input type="number" name="service_lat" step="0.0000000000001" id="service_lat">
-    <label for="service_long">Longitud</label>
-    <input type="number" name="service_long" step="0.0000000000001" id="service_long">
-    <br>
+    <input type="text" name="service_title" id="service_title" class="form-control" required>
+    </div>
+
+    <div class="form-group">
     <label for="service_description">Descripcion</label>
-    <br>
-    <textarea name="service_description" id="service_description" cols="30" rows="10"></textarea>
-    <br>
+    <textarea name="service_description" id="service_description" cols="28" rows="7" class="form-control"  required></textarea>
+    </div>
+    <div class="form-group">
     <label for="active">Activo</label>
     <input type="checkbox" name="active" id="active">
-    <br><br>
+    </div>
+
+    
+        <div class="form-row dir">
+            <div class="col">
+        <label for="direccion">Buscar direccion </label>
+        <input type="text" name="service_dir" id="direccion" class="form-control"  required>
+        
+            </div>
+            <div class="col boton">
+        <span id="buscar" class="btn btn-primary">Buscar direccion</span>
+            </div>
+    </div>
+        <div class="col-md-12 col-sm-12" id="map-canvas" style="height:200px;"></div>
+
     <input type="text" hidden name="map_link" id="map_link">
-    <input type="submit" value="Guardar">
+    <div class="form-group">
+        <label>Coordenadas</label>
+        <label for="service_lat">Latitud</label>
+        <input type="number" name="service_lat" step="0.0000000000001" id="service_lat" class="form-control"  required>
+        <label for="service_long">Longitud</label>
+        <input type="number" name="service_long" step="0.0000000000001" id="service_long" class="form-control"  required>
+        </div>
+    <input type="submit" class="btn btn-primary" value="Guardar">
+        </div>
+    
 </form>
-<label for="">Buscar direccion </label>
-<input type="text" name="" id="direccion">
-<button id="buscar">Buscar direccion</button>
+        </div>
+</div>
 
 
- <div class="col-md-12 col-sm-12" id="map-canvas" style="height:200px;"></div>
 
+
+@include('partials/footer')
+@include('partials/bootstrapScript')
 
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeYqa3zn6HNHm26WQyZhkZ5567ybTeYYQ"></script>
 <script>

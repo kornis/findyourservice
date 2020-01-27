@@ -1,41 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/login.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="{{asset("css/footer.css")}}">
+    <title>Find Your Service | encontrá lo que buscas</title>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row logo-row">
-            <div class="logo">
-                <a href="/"><img src="/images/logo-tienda.png" alt="" srcset=""></a>
-            </div>
-        </div>
+    <header class="container d-flex justify-content-center">
+        <div class="col-sm-8">
+
+                <h2>Find your Service</h2>
+
+        
     </div>
-
-
+</header>
     <div class="container login-container">
         <div class="row main-row">
-            <div class="col-sm-12 login">
-                <img src="/images/default.png" class="login-img"alt="">
-                @if(isset($error)){
-                    {!! error !!}
-                }
-                @endif
+ 
+                <div class="col-sm-12 login">
+                <img src="{{asset("images/default.png")}}" class="login-img"alt="">
+     
             <form method="POST" action="{{action('userController@login')}}">
                 {{csrf_field()}}
+                    <h4>INICIAR SESIÓN</h4>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="text" name="email" id="email" class="form-control">
+                        <input type="text" name="email" id="email" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Contraseña</label>
-                        <input type="password" name="password" id="password" class="form-control">
+                        <input type="password" name="password" id="password" class="form-control" required>
                     </div>
+                    @if(isset($error))
+                    <div class="alert alert-danger" role="alert">
+                        {{$error }}
+                      </div>
+                  
+                
+                @endif
+                    
                     <button type="submit" class="btn btn-primary submit">Ingresar</button>
                 </form>
             </div>
@@ -47,15 +54,10 @@
         </div>
     </div>
 
-    <footer class="container-fluid">
+    @include('partials/footer')
 
-        <div class="row footer2row">
-            <div class="">
-                <span style="color: black; font-size: 10px;"><i class="far fa-registered"></i> FindYourService.com</span>
-            </div>
-        </div>
+ 
 
-    </footer>
 
     <script>
         

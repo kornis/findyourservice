@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    protected $fillable = ['service_title', 'service_description','service_lat','service_long','active','map_link'];
+    protected $fillable = ['service_title', 'service_description','service_lat','service_long','active','map_link','service_dir'];
 
     public function user()
     {
@@ -23,7 +23,7 @@ class Service extends Model
 
     public function scopeDistance($query,$latitude,$longitude, $radius )
     {
-        if($radius)
+        if($radius==2 or $radius==10 or $radius==100)
         {
             return $query->selectRaw('( 6371 * acos( cos( radians(?) ) *
                                cos( radians( service_lat ) )

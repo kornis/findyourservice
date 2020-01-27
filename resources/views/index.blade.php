@@ -6,6 +6,7 @@
     <meta name="google-site-verification" content="WBfz1bzZpX_goZKsi2H8z78mOqBApxp-PTEwKLUs9bk" />
     <link rel="stylesheet" href="{{asset("css/bootstrap.min.css")}}">
 <link rel="stylesheet" href="{{asset("css/style.css")}}">
+<link rel="stylesheet" href="{{asset("css/footer.css")}}">
     <title>Find Your Service | encontrá lo que buscas</title>
 </head>
 <body>
@@ -16,7 +17,7 @@
 <div class="container main-section">
     <div class="alert alert-warning alert-dismissible fade show"  role="alert">
         <p id="error"></p>
-    @if(isset($err))<p>{{$err}}</p>@endif
+    @if(isset($err))<p id="notfound">{{$err}}</p>@endif
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -24,6 +25,7 @@
 
 <form action="{{action('servicesController@searchService')}}" method="POST">
     {{ csrf_field() }}
+    
     <div class="form-row">
     <div class="form-group col-sm-8 col-lg-9">
     <label for="busqueda">Buscar servicios</label>
@@ -31,22 +33,18 @@
     </div>
     <div class="form-group col-sm-4 col-lg-3">
         <label for="radius">Radio de busqueda</label>
-    <select name="radius" id="radius" class="form-control"><option value="2">2km</option>
+    <select name="radius" id="radius" class="form-control">
+      <option value="2">2km</option>
     <option value="10">10km</option>
     <option value="100">100km</option>
     <option value="any">Anywhere</option></select>
     </div>
     </div>
-    <!-- <div class="form-row">
-      <div class="form-group">
-    <label for="local_lat">Latitud</label> -->
+
     <input type="number" hidden name="local_lat" step="0.0000000000001" id="local_lat" class="form-control">
-      <!--</div>
-      <div class="form-group">
-    <label for="local_lat">Longitud</label> -->
+
     <input type="number" hidden name="local_long" step="0.0000000000001" id="local_long" class="form-control">
-      <!-- </div>
-    </div> -->
+
     <button type="submit" class="btn btn-primary">Buscar</button>
 </form>
 </div>
@@ -54,6 +52,7 @@
 <!--  hasta aqui -->
 
 @if (isset($data))
+@if(isset($data[0]))
 <div class="container table">
     <div class="col">
 <table class="table">
@@ -85,23 +84,29 @@
     </tbody>
   </table>
     </div>
-</div>    
+</div>
+@else
+<div class="container">
+  <div class="col">
+<h3>No se encontraron servicios dentro del radio seleccionado</h3>    
+  </div>
+</div>
+@endif
 @endif
 
 
 @include('partials/footer')
 
- 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
+ @include('partials/bootstrapScript')
+
 <script>
     
     window.onload =function geoFindMe() {
   var output = document.getElementById("error");
   var local_lat = document.getElementById("local_lat");
   var local_long = document.getElementById("local_long");
-
+  var notfound = document.getElementById("notfound");
+  var per = document.getElementById('permission');
   if (!navigator.geolocation){
     output.innerHTML = "<p>Tu navegador no soporta Geolocalización.</p>";
     return;
@@ -112,8 +117,11 @@
     var longitude = position.coords.longitude;
     output.parentNode.setAttribute('class','alert alert-primary alert-dismissible fade show');
     output.innerHTML = '<p>Tu latitud es ' + latitude + '° <br>Tu longitud es ' + longitude + '°</p>';
+    
    local_lat.value = latitude.toFixed(8);
    local_long.value = longitude.toFixed(8);
+   notfound.innerHTML = "";
+   per.innerHTML = "";
   };
 
   function error() {
