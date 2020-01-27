@@ -24,6 +24,8 @@ Ademas se generará una imagen estatica del mapa con el marker de la ubicación.
 
 Luego de crear los servicios deseados, se puede acceder a la pagina principal para comenzar con las busquedas.
 
+Se hace uso de Bootstrap y jquery para la animacion y diseño de la pagina de forma online, con lo cual, si no hay conexion a internet, el navbar y algunos diseños de objetos pueden no verse como corresponde.
+
 
 
 
