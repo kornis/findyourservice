@@ -4,6 +4,10 @@ Es una web para encontrar servicios cerca tuyo.
 
 ## Getting Started
 
+Para esta aplicación estoy usando como motor de base de datos a mysql.
+
+Se deberá configurar los datos de conexion a la base en el archivo .env
+
 Realizar la migración de las tablas.
 
 php artisan migrate:fresh --seed
