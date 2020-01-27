@@ -19,8 +19,8 @@ class Services extends Migration
             $table->string('service_description',150);
             $table->string('active')->default('off');
             $table->string('service_dir');
-            $table->decimal('service_lat',10,8);
-            $table->decimal('service_long',10,8);
+            $table->decimal('service_lat',12,8);
+            $table->decimal('service_long',12,8);
             $table->string('map_link');
 
             $table->integer('user_id')->unsigned();
